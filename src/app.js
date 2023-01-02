@@ -6,18 +6,27 @@ const list = [
 ];
 // 函数组件
 function Hello() {
-  const clickHandle = () => {
-    console.log('事件触发');
+  const clickHandle = (e, msg) => {
+    //阻止默认行为
+    e.preventDefault();
+    console.log('事件触发', e, msg);
   };
-  return <h1 onClick={clickHandle}>hello </h1>;
+  return <h1 onClick={(e) => clickHandle(e, 'this is msg')}>hello </h1>;
 }
 // 类组件
 class HelloComponent extends React.Component {
-  clickHandle() {
+  // state 固定写死
+  state = {
+    count: 0,
+  };
+  clickHandle = () => {
     console.log('类组件事件触发');
-  }
+    // 不可以state直接赋值，要使用setState
+    console.log(this.state);
+    this.setState({ count: this.state.count+1 });
+  };
   render() {
-    return <h2 onClick={this.clickHandle}>hello </h2>;
+    return <h2 onClick={this.clickHandle}>hello {this.state.count} </h2>;
   }
 }
 

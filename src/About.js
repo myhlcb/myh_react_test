@@ -1,8 +1,9 @@
 import React from 'react';
+import {useSearchParams,useParams} from 'react-router-dom'
 const list = [
   { id: 1, name: 'google', color: 'red' },
   { id: 2, name: 'Tencent', color: 'green' },
-  { id: 1, name: 'apple', color: 'yellow' },
+  { id: 3, name: 'apple', color: 'yellow' },
 ];
 // 函数组件
 function Hello() {
@@ -31,11 +32,14 @@ class HelloComponent extends React.Component {
 }
 
 export default function About() {
+  const [searchParams] = useSearchParams()
+  const params = useParams()
+  console.log(searchParams,111,params,searchParams.get('id'),params.id)
   return (
     <>
       <ul>
         {list.map((l) => (
-          <li style={{ color: l.color }}>{l.name}</li>
+          <li key={l.id} style={{ color: l.color }}>{l.name}</li>
         ))}
       </ul>
       <Hello />
